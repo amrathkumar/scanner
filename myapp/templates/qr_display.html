@@ -4,9 +4,18 @@
     <title>QR Codes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2rem;
+            color: #2c3e50;
         }
 
         /* Weather Widget Style */
@@ -14,10 +23,10 @@
             position: fixed;
             bottom: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px 18px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             font-size: 14px;
             z-index: 999;
         }
@@ -30,28 +39,63 @@
         .weather-widget span {
             vertical-align: middle;
         }
-        .qr-widget{
-            background:rgba(55,45,65,0.7);
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
 
+        /* QR Code Section */
+        .qr-widget {
+            background: rgba(55, 45, 65, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+            margin: 20px auto;
+            border-radius: 12px;
+            max-width: 95%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+
         ul {
             display: flex;
-            list-style: none;   
-            padding: 0;         
-            margin: 0;        
-            gap: 1rem;   
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 1.5rem;
+            justify-content: center;
         }
 
         li {
             background-color: #3498db;
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        li:hover {
+            background-color: #2980b9;
+            transform: translateY(-5px);
+        }
+
+        li img {
+            width: 120px;
+            height: 120px;
+            margin-top: 10px;
+            border-radius: 8px;
+            background: white;
+            padding: 5px;
+        }
+
+        @media (max-width: 768px) {
+            ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .qr-widget {
+                padding: 20px 10px;
+            }
         }
     </style>
 </head>
@@ -71,6 +115,5 @@
         <strong>{{ weather.city }}</strong><br>
         <span>{{ weather.temperature }}°C, {{ weather.description }}</span>
     </div>
-
 </body>
 </html>
