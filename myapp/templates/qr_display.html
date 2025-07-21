@@ -32,12 +32,32 @@
         }
         .qr-widget{
             background:rgba(55,45,65,0.7);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+        }
+        ul {
+            display: flex;
+            list-style: none;   
+            padding: 0;         
+            margin: 0;        
+            gap: 1rem;   
+        }
+
+        li {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+    <h2>QR Codes for Items</h2>
     <div class="qr-widget">
-        <h2>QR Codes for Items</h2>
         <ul>
             {% for item in items %}
                 <li>
