@@ -21,7 +21,7 @@ def show_qr(request):
         qr_url = f"https://quickchart.io/qr?text={item_url}"
         qr_items.append({"name": item.name, "qr_url": qr_url})
 
-        settings = WeatherSettings.objects.first()
+    settings = WeatherSettings.objects.first()
     city = settings.city if settings else "Mysuru"
 
     api_key = "e1df2f4794f96139e687cac6f1eddd5f"
@@ -78,7 +78,7 @@ def add_product(request):
     brand = data.get("brands")
     image = data.get("image")
     code = data.get("code")
-    
+    description = data.get("description")
 
     # no dupli
     item, created = Item.objects.get_or_create(
@@ -87,6 +87,7 @@ def add_product(request):
             "name": name,
             "brand": brand,
             "image": image,
+            "description": description,
         }
     )
 
