@@ -9,6 +9,26 @@ import json
 
 def item_detail(request, item_id):
     item = get_object_or_404(Item, id=item_id)
+    url = f"https://world.openfoodfacts.org/cgi/search.pl?search_terms={item.name}&search_simple=1&action=process&json=1"
+
+    response = requests.get(url)
+    data = response.json()
+
+    products = data.get("products", [])
+    results = []
+    for product in products:
+        results.append({
+            "product_name": product.get("product_name"),
+            "brands": product.get("brands"),
+            "code": product.get("code"),
+            "image": product.get("image_front_url"),
+            "description": product.get("allergens_from_ingredients"),
+        })
+
+    if results:
+        item = results[0]
+    else:
+        item = {"product_name": "Not Found", "description": "N/A"}
     return render(request, 'qr_detail.html', {'item': item})
 
 def show_qr(request):
