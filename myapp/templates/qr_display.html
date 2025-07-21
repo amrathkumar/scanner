@@ -71,67 +71,6 @@
         <strong>{{ weather.city }}</strong><br>
         <span>{{ weather.temperature }}°C, {{ weather.description }}</span>
     </div>
-    <script>
-function searchAndAdd() {
-    const name = document.getElementById('search-input').value;
-
-    fetch(`/search-product?name=${name}`)
-        .then(res => res.json())
-        .then(data => {
-            const results = data.results;
-            const container = document.getElementById("results");
-            container.innerHTML = "";
-
-            results.forEach(product => {
-                const div = document.createElement("div");
-                div.innerHTML = `
-                    <strong>${product.product_name}</strong> <br>
-                    Brand: ${product.brands || 'N/A'}<br>
-                    <img src="${product.image}" width="100"/><br>
-                    <button onclick='addProduct(${JSON.stringify(product)})'>Add</button>
-                    <hr>
-                `;
-                container.appendChild(div);
-            });
-        });
-}
-
-function addProduct(product) {
-    fetch("/add-product", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify(product)
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-        location.reload();  
-    });
-}
-
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-</script>
-
-<input type="text" id="search-input" placeholder="Search product">
-<button onclick="searchAndAdd()">Search</button>
-<div id="results"></div>
 
 </body>
 </html>

@@ -61,34 +61,6 @@ def show_qr(request):
 
 
 
-def search_product(request):
-    product_name =add_product(request)  # Default: "nutella"
-    url = f"https://world.openfoodfacts.org/cgi/search.pl?search_terms={product_name}&search_simple=1&action=process&json=1"
-
-    response = requests.get(url)
-    data = response.json()
-
-    products = data.get("products", [])
-    results = []
-    for product in products:
-        results.append({
-            "product_name": product.get("product_name"),
-            "brands": product.get("brands"),
-            "code": product.get("code"),
-            "image": product.get("image_front_url"),
-            "description": product.get("allergens_from_ingredients"),
-        })
-
-    if results:
-        item = results[0]
-    else:
-        item = {"product_name": "Not Found", "description": "N/A"}
-
-    return render(request, 'qr_detail.html', {
-        'item': item  
-    })
-
-
 @csrf_exempt
 @require_POST
 def add_product(request):
