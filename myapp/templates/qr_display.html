@@ -2,16 +2,116 @@
 <html>
 <head>
     <title>QR Codes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Weather Widget Style */
+        .weather-widget {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            font-size: 14px;
+            z-index: 999;
+        }
+
+        .weather-widget img {
+            vertical-align: middle;
+            height: 30px;
+        }
+
+        .weather-widget span {
+            vertical-align: middle;
+        }
+        .qr-widget{
+            background:rgba(55,45,65,0.7);
+        }
+    </style>
 </head>
 <body>
-    <h2>QR Codes for Items</h2>
-    <ul>
-        {% for item in items %}
-            <li>
-                <strong>{{ item.name }}</strong><br>
-                <img src="{{ item.qr_url }}" alt="QR for {{ item.name }}"><br><br>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="qr-widget">
+        <h2>QR Codes for Items</h2>
+        <ul>
+            {% for item in items %}
+                <li>
+                    <strong>{{ item.name }}</strong><br>
+                    <img src="{{ item.qr_url }}" alt="QR for {{ item.name }}"><br><br>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="weather-widget">
+        <strong>{{ weather.city }}</strong><br>
+        <span>{{ weather.temperature }}°C, {{ weather.description }}</span>
+    </div>
+    <script>
+function searchAndAdd() {
+    const name = document.getElementById('search-input').value;
+
+    fetch(`/search-product?name=${name}`)
+        .then(res => res.json())
+        .then(data => {
+            const results = data.results;
+            const container = document.getElementById("results");
+            container.innerHTML = "";
+
+            results.forEach(product => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <strong>${product.product_name}</strong> <br>
+                    Brand: ${product.brands || 'N/A'}<br>
+                    <img src="${product.image}" width="100"/><br>
+                    <button onclick='addProduct(${JSON.stringify(product)})'>Add</button>
+                    <hr>
+                `;
+                container.appendChild(div);
+            });
+        });
+}
+
+function addProduct(product) {
+    fetch("/add-product", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(product)
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        location.reload();  
+    });
+}
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<input type="text" id="search-input" placeholder="Search product">
+<button onclick="searchAndAdd()">Search</button>
+<div id="results"></div>
+
 </body>
 </html>
