@@ -5,7 +5,7 @@ class Item(models.Model):
     brand = models.CharField(max_length=100, blank=True, null=True)
     image = models.URLField(blank=True, null=True)
     code = models.CharField(max_length=100, unique=True, blank=True, null=True)
-    description = models.TextField(max_length=100)
+    description = models.TextField()
 
     def __str__(self):
         return self.name

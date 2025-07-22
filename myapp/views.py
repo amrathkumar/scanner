@@ -17,12 +17,14 @@ def item_detail(request, item_id):
     products = data.get("products", [])
     results = []
     for product in products:
+        description = product.get("allergens_from_ingredients")
+        
         results.append({
             "product_name": product.get("product_name"),
             "brands": product.get("brands"),
             "code": product.get("code"),
             "image": product.get("image_front_url"),
-            "description": product.get("allergens_from_ingredients"),
+            "description": description if description else item.description,
         })
 
     if results:
