@@ -1,90 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>QR Codes</title>
+    <meta charset="UTF-8">
+    <title>DeploQR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: #f4f6f9;
+            background: #eef1f5;
             color: #333;
         }
 
         h2 {
             text-align: center;
-            margin-top: 20px;
-            font-size: 2rem;
+            margin-top: 25px;
+            font-size: 2.5rem;
             color: #2c3e50;
+            letter-spacing: 1px;
         }
 
-        /* Weather Widget Style */
-        .weather-widget {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            font-size: 14px;
-            z-index: 999;
-        }
-
-        .weather-widget img {
-            vertical-align: middle;
-            height: 30px;
-        }
-
-        .weather-widget span {
-            vertical-align: middle;
-        }
-
-        /* QR Code Section */
         .qr-widget {
-            background: rgba(55, 45, 65, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #ffffff;
+            margin: 30px auto;
             padding: 30px 20px;
-            margin: 20px auto;
-            border-radius: 12px;
+            border-radius: 20px;
             max-width: 95%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
 
         ul {
             display: flex;
             flex-wrap: wrap;
             list-style: none;
+            justify-content: center;
+            gap: 1.8rem;
             padding: 0;
             margin: 0;
-            gap: 1.5rem;
-            justify-content: center;
         }
 
         li {
-            background-color: #3498db;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 20px;
+            border-radius: 16px;
+            width: 160px;
             text-align: center;
-            transition: transform 0.2s ease, background 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         li:hover {
-            background-color: #2980b9;
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         li img {
             width: 120px;
             height: 120px;
-            margin-top: 10px;
-            border-radius: 8px;
-            background: white;
-            padding: 5px;
+            margin-top: 12px;
+            border-radius: 10px;
+            background: #f8f8f8;
+            padding: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        li:hover img {
+            transform: scale(1.05);
+        }
+
+        .weather-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            padding: 16px 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 15px;
+            color: #fff;
+            z-index: 999;
+        }
+
+        .weather-widget img {
+            vertical-align: middle;
+            height: 28px;
+            margin-right: 8px;
+        }
+
+        .weather-widget span {
+            vertical-align: middle;
         }
 
         @media (max-width: 768px) {
@@ -96,11 +102,22 @@
             .qr-widget {
                 padding: 20px 10px;
             }
+
+            li {
+                width: 80%;
+            }
+
+            .weather-widget {
+                bottom: 10px;
+                right: 10px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <h2>DeploQR</h2>
+
     <div class="qr-widget">
         <ul>
             {% for item in items %}
@@ -111,7 +128,9 @@
             {% endfor %}
         </ul>
     </div>
+
     <div class="weather-widget">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/partly-cloudy-day.png" alt="Weather Icon">
         <strong>{{ weather.city }}</strong><br>
         <span>{{ weather.temperature }}°C, {{ weather.description }}</span>
     </div>

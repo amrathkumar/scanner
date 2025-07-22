@@ -1,42 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>{{ item.name }} - Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f7;
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: #ffffff;
+            max-width: 700px;
+            width: 100%;
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 2rem;
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 10px;
         }
 
         h2 {
-            font-size: 1.5em;
-            color: #34495e;
+            font-size: 1.25rem;
+            color: #3498db;
             margin-bottom: 20px;
         }
 
         p {
-            font-size: 1.1em;
+            font-size: 1.1rem;
             line-height: 1.6;
-            background-color: #ffffff;
-            padding: 15px;
+            color: #555;
+            background-color: #fdfdfd;
+            padding: 15px 20px;
+            border-left: 4px solid #3498db;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1 style="font-weight: bold;">{{ item.name }}</h1>
-    <h2>{{item.brands}}</h2>
-    <p>{{ item.description }}</p>
+    <div class="container">
+        <h1>{{ item.name }}</h1>
+        <h2>{{ item.brands }}</h2>
+        <p>{{ item.description }}</p>
+    </div>
 </body>
 </html>
